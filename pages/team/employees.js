@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import TeamsNavbar from "@/components/TeamsNavbar";
 import EmployeesTable from "@/components/EmployeesTable";
 
+
 export default function EmployeesPage() {
   return (
     <Layout title="Colaboradores">
@@ -10,6 +11,8 @@ export default function EmployeesPage() {
       </div>
 
       <TeamsNavbar />
+      
+      
       <EmployeesTable />
     </Layout>
   );
