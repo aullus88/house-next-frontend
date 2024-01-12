@@ -1,5 +1,4 @@
 import cookie from "cookie";
-
 import { supabaseUrl } from "@/config";
 
 export default async (req, res) => {
@@ -7,7 +6,7 @@ export default async (req, res) => {
     const { email, password } = req.body;
 
     const supabaseRes = await fetch(
-      `https://rtleiebdkwvhgtjxdrxy.supabase.co/auth/v1/token?grant_type=password`,
+      `${supabaseUrl}/auth/v1/token?grant_type=password`,
       {
         method: "POST",
         headers: {
@@ -24,13 +23,13 @@ export default async (req, res) => {
     
 
     const data = await supabaseRes.json();
-    
+    // console.log(data)
 
         if (supabaseRes.ok) {
           // Set Cookie
           res.setHeader(
             "Set-Cookie",
-            cookie.serialize("token", data.jwt, {
+            cookie.serialize("token", data.access_token, {
               httpOnly: true,
               secure: process.env.NODE_ENV !== "development",
               maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -38,8 +37,9 @@ export default async (req, res) => {
               path: "/",
             })
           );
+        //   console.log(data.access_token)
 
-          res.status(200).json({ user: data.user });
+          res.status(200).json({ data:data });
         } else {
           res
             .status(data.statusCode)

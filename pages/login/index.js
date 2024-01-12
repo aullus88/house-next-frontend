@@ -38,7 +38,7 @@ export default function LoginPage() {
             >
               <div className="mb-5">
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:gray-900"
                 >
                   Email
@@ -54,7 +54,7 @@ export default function LoginPage() {
               </div>
               <div className="mb-5">
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:gray-900"
                 >
                   Senha

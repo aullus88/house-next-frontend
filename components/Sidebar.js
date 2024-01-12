@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react";
 
 export default function Navbar({ children }) {
   const { logout, user } = useContext(AuthContext);
+  // console.log(user)
 
   return (
     <>
@@ -126,7 +127,8 @@ export default function Navbar({ children }) {
           className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-slate-900/50 dark:border-gray-700"
           aria-label="Sidebar"
         >
-          <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-slate-900/0">
+          <div className="flex flex-col h-full justify-between ">
+            <div className="px-3 pb-4 overflow-y-auto bg-white dark:bg-slate-500/0">
             <ul className="space-y-2 font-medium">
               <li>
                 <a
@@ -225,16 +227,22 @@ export default function Navbar({ children }) {
                 </a>
               </li>
             </ul>
-            <button
-              onClick={logout}
-              type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Sair
-            </button>
-          </div>
+            </div>
+            <div className="flex flex-col h-fit p-2 gap-2 ">
+              <p>{user ? user.email : ""}</p>
+              <button
+                onClick={logout}
+                type="submit"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Sair
+              </button>
+            </div>
+            </div>
+            
+          
         </aside>
-        <main className="p-4 mt-12 sm:ml-64 bg-gray-800 h-full">
+        <main className="flex-col p-4 mt-12 sm:ml-64 bg-gray-800  max-w-full">
           {children}
         </main>
       </div>

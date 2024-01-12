@@ -38,9 +38,9 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
@@ -52,7 +52,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="first-name"
+                    htmlFor="first-name"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     First Name
@@ -68,7 +68,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="last-name"
+                    htmlFor="last-name"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Last Name
@@ -84,7 +84,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="email"
+                    htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Email
@@ -100,7 +100,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="phone-number"
+                    htmlFor="phone-number"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Phone Number
@@ -116,7 +116,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="department"
+                    htmlFor="department"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Department
@@ -132,7 +132,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="company"
+                    htmlFor="company"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Company
@@ -148,7 +148,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="current-password"
+                    htmlFor="current-password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Current Password
@@ -164,7 +164,7 @@ export default function NewEmployee({ showNewEmployee, OpenNewEmployee }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
-                    for="new-password"
+                    htmlFor="new-password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     New Password

@@ -6,6 +6,7 @@ import Table from "@/components/common/Table";
 import React, { useState } from "react";
 import { supabase } from "@/auth/server";
 import { data } from "autoprefixer";
+import EmployeesTable from "@/components/EmployeesTable";
 
 export default function EmployeesPage({ employeesData }) {
   const [showNewEmployee, setShowNewEmployee] = useState(false);
@@ -33,6 +34,7 @@ export default function EmployeesPage({ employeesData }) {
         OpenNewEmployee={OpenNewEmployee}
       />
 
+      {/* <EmployeesTable data={employees} title={"employee"} root={"team"} /> */}
       <Table data={employees} title={"employee"} root={"team"} />
     </Layout>
   );
@@ -40,5 +42,10 @@ export default function EmployeesPage({ employeesData }) {
 
 let { data: employees, error } = await supabase.from("employees").select("*");
 
-const employeesData = employees;
-console.log(employees);
+const employeesData = employees.map((employee) => ({
+  id: employee.id,
+  nome: employee.name,
+  cpf: employee.cpf
+  }));
+// console.log(employeesData);
+// console.log(employees);
