@@ -38,7 +38,7 @@ export default function Table(props) {
       {/* <h1 className="m-2 text-center">{title}</h1> */}
       <table className="h-max-full w-max-screen text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+          <tr >
             <th scope="col" className="p-4 bg-gray-200 dark:bg-gray-700">
               <div className="flex items-center">
                 <input
@@ -50,7 +50,7 @@ export default function Table(props) {
                   checkbox
                 </label>
               </div>
-            </th>
+            </th >
             {headers.map((header) => (
               <th key={header} scope="col" className="px-6 py-3" onClick={() => handleSort(header)}>
                 {header} {sortColumn === header && (

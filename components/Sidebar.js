@@ -1,11 +1,22 @@
 import Link from "next/link";
-import logo from "@/public/house_logo_dark.svg";
+import logo_dark from "@/public/house_logo_dark.svg";
+import logo from "@/public/house_logo.png";
 import Image from "next/image";
 import AuthContext from "@/context/AuthContext";
 import { useState, useEffect, useContext } from "react";
 import MenuItem from "./mocks/MenuItem";
 
 export default function Navbar({ children, title }) {
+
+  const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+if (prefersDarkMode) {
+  // User prefers dark mode
+  console.log('User prefers dark mode');
+} else {
+  // User prefers light mode
+  console.log('User prefers light mode');
+}
   const menuItems = [
     {
       title: "Pages",
@@ -161,7 +172,8 @@ export default function Navbar({ children, title }) {
             <div className="px-3 pb-4 overflow-y-auto bg-white dark:bg-slate-500/0">
             <Link href="/">
                   <div className="flex justify-center items-center mx-auto p-6">
-                    <Image src={logo} width={180} alt="Picture of the author" />
+                    <Image src={prefersDarkMode ? logo_dark : logo} width={180} alt="Picture of the author" />
+                    
                   </div>
                 </Link>
               <ul className="space-y-2 font-medium">
@@ -187,7 +199,7 @@ export default function Navbar({ children, title }) {
             </div>
           </div>
         </aside>
-        <main className="flex-col h-screen p-4  sm:ml-64 bg-slate-800  max-w-full">   
+        <main className="flex-col h-screen p-4  sm:ml-64 bg-stone-100 dark:bg-stone-950  max-w-full">   
         <div >
         <h3 className="text-3xl font-bold dark:text-white">{title}</h3>
       </div>     
