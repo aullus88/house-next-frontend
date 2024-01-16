@@ -11,7 +11,7 @@ export default function EmployeesPage() {
   return (
     <Layout title="Colaboradores">
       <div >
-        <h3 className="text-3xl font-bold dark:text-white">Funcionario {id}</h3>
+        <h3 className="text-2xl font-regular dark:text-white">Funcionario {id}</h3>
       </div>
 
       <TeamsNavbar />

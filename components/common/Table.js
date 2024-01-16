@@ -1,11 +1,40 @@
+import React, { useState } from "react";
+
 export default function Table(props) {
   const { root, title, data } = props;
   // console.log(data)
 
   const headers = Object.keys(data[0]);
+  const [sortColumn, setSortColumn] = useState(null);
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  const handleSort = (column) => {
+    if (sortColumn === column) {
+      // If the same column is clicked, toggle the order
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      // If a new column is clicked, set the new column and default order to ascending
+      setSortColumn(column);
+      setSortOrder("asc");
+    }
+  };
+
+  const sortedData = [...data].sort((a, b) => {
+    const aValue = sortColumn ? a[sortColumn] : null;
+    const bValue = sortColumn ? b[sortColumn] : null;
+
+    if (aValue === bValue) return 0;
+
+    if (sortOrder === "asc") {
+      return aValue < bValue ? -1 : 1;
+    } else {
+      return aValue > bValue ? -1 : 1;
+    }
+  });
 
   return (
-    <div className="container mx-auto my-auto overscroll-auto flex flex-col w-full bg-red-500 h-full">
+    // <div className="container my-auto overflow-hidden overscroll-auto flex flex-col w-full ">
+      <div class="container my-auto overflow-x-auto flex flex-col w-full shadow-md sm:rounded-lg">
       {/* <h1 className="m-2 text-center">{title}</h1> */}
       <table className="h-max-full w-max-screen text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -23,8 +52,10 @@ export default function Table(props) {
               </div>
             </th>
             {headers.map((header) => (
-              <th key={header} scope="col" className="px-6 py-3">
-                {header}
+              <th key={header} scope="col" className="px-6 py-3" onClick={() => handleSort(header)}>
+                {header} {sortColumn === header && (
+                  <span>{sortOrder === "asc" ? " ↑" : " ↓"}</span>
+                )}
               </th>
             ))}
             <th scope="col" className="px-6 py-3">
@@ -33,7 +64,7 @@ export default function Table(props) {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {sortedData.map((item, index) => (
             <tr
               key={index}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"

@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { loginUserSupabase, logOutUserSupabase } from "@/auth/server";
+
 import { NEXT_URL } from "@/config/index";
 
 const AuthContext = createContext();
@@ -12,8 +12,9 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    checkUserLoggedIn(), [];
-  });
+    checkUserLoggedIn();
+  }, []);
+  
 
   // Login user
   const login = async ({ email, password }) => {

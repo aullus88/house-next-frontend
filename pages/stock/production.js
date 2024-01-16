@@ -3,10 +3,7 @@ import StockNavbar from "@/components/stock/StockNavbar";
 
 export default function ProductionPage() {
   return (
-    <Layout title="Produção">
-      <div >
-        <h3 class="text-3xl font-bold dark:text-white">Produção</h3>
-      </div>
+    <Layout title="Estoque">
 
       <StockNavbar />
     </Layout>

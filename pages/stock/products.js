@@ -6,10 +6,7 @@ import Table from "@/components/common/Table";
 
 export default function ProductsPage() {
   return (
-    <Layout title="Produtos">
-      <div >
-        <h3 class="text-3xl font-bold dark:text-white">Produtos</h3>
-      </div>
+    <Layout title="Estoque">
 
       <StockNavbar />
       <Table data={productsData} title={"products"} root={"stock"}/>

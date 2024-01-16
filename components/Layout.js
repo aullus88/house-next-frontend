@@ -1,11 +1,8 @@
 import Head from "next/head";
 import Sidebar from "./Sidebar";
 import { useRouter } from "next/router";
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext } from "react";
 import AuthContext from "@/context/AuthContext";
-
-
-
 
 export default function Layout({ title, keywords, description, children }) {
   const { user } = useContext(AuthContext);
@@ -14,14 +11,14 @@ export default function Layout({ title, keywords, description, children }) {
   useEffect(() => {
     // Redirect to login if there's no user
     if (!user) {
-      router.push('/login');
+      router.push("/login");
     }
   }, [user, router]);
- 
 
   return (
     <div>
-      {user? (<Sidebar>{children}</Sidebar>) :''}
+      {user ? <Sidebar title={title}>{(children)}</Sidebar> : ""}
+
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
