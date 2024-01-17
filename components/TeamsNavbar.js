@@ -54,7 +54,7 @@ export default function TeamsNavbar() {
               {menuItems.map((page) => (
                 <div className="flex flex-wrap -mb-px" key={page.title}>
                   {page.list.map((item) => (
-                    <li className="me-2">
+                    <li key={item.title} className="me-2">
                     <Link href={`${item.path}`} className={`inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 ${pathname === item.path && "text-blue-600 border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500"}`}>{item.title}</Link>
                     </li>
                   ))}

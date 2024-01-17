@@ -8,30 +8,16 @@ import { supabaseUrl } from "@/config";
 import { cpfMask, pisMask, phoneMask } from "@/helpers/mask";
 import { Datepicker } from "flowbite-react";
 
-export default function NewEmployeeForm(employees) {
-  const [values, setValues] = useState({
-    first_name: "",
-    last_name: "",
-    name: "",
-    birth_date: "",
-    cpf: "",
-    pis: "",
-    address: "",
-    marital_status: "",
-    education: "",
-    id_document: "",
-    // id_issuing_date: "",
-    // id_issuer: "",
-    // email: "",
-    // phone: "",
-  });
+
+export default function NewEmployeeForm({employees, values, setValues}) {
+  
 
   const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log(values);
+    // console.log(values);
   };
   const handleFirstNameChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +36,8 @@ export default function NewEmployeeForm(employees) {
     const { name, value } = e.target;
 
     const cpfExists = employees.some((employee) => employee.cpf === value);
+    console.log(employees[1].cpf)
+    console.log(value)
 
     if (cpfExists) {
       toast.error("Já existe um cadastro com este CPF.");
