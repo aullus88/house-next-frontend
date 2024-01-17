@@ -3,7 +3,6 @@ import TeamsNavbar from "@/components/TeamsNavbar";
 import NewEmployee from "@/components/NewEmployee";
 import Table from "@/components/common/Table";
 import React, { useState } from "react";
-
 import { data } from "autoprefixer";
 import { parseCookies } from '@/helpers/index'
 import { supabaseUrl } from "@/config";
@@ -23,7 +22,7 @@ export default function EmployeesPage({employeesData, token}) {
       
 
       <TeamsNavbar />
-      <div class=" rounded-md shadow-sm" role="group">
+      <div className=" rounded-md shadow-sm" role="group">
       <button
         type="button"
         className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -69,6 +68,7 @@ export async function getServerSideProps({ req }){
     pis: employee.pis,
     Nascimento: employee.birth_date
     }));
+    console.log(employees)
 
   
 
