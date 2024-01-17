@@ -6,10 +6,7 @@ import { ingredientsData } from "@/components/mocks/ingredients";
 
 export default function ProductsPage() {
   return (
-    <Layout title="Ingredientes">
-      <div >
-        <h3 class="text-3xl font-bold dark:text-white">Ingredientes</h3>
-      </div>
+    <Layout title="Estoque">
 
       <StockNavbar />
       <Table data={ingredientsData} title={"ingredients"} root={"stock"}/>

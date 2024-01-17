@@ -6,6 +6,9 @@
       "@/components/*":["components/*"],
       "@/styles/*":["styles/*"],
       "@/public/*":["public/*"],
+      "@/config/*":["config/*"],
+      "@/supabase/*":["supabase/*"],
+      "@/helpers/*":["helpers/*"],
 
     }
   }

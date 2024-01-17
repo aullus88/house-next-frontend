@@ -7,39 +7,28 @@ import Link from "next/link";
 import { supabaseUrl } from "@/config";
 import { cpfMask, pisMask, phoneMask } from "@/helpers/mask";
 import { Datepicker } from "flowbite-react";
+import { ToggleSwitch, Label, Select } from 'flowbite-react';
+import NewEmployeeForm from "./NewEmployeeForm";
 
-export default function NewEmployee({
-  showNewEmployee,
-  OpenNewEmployee,
+export default function NewHire({
+  showNewHire,
+  OpenNewHire,
   token,
   employees,
+  values,
+  setValues
 }) {
-  if (!showNewEmployee) {
+  if (!showNewHire) {
     return null;
   }
 
-  const [values, setValues] = useState({
-    first_name: "",
-    last_name: "",
-    name: "",
-    birth_date: "",
-    cpf: "",
-    pis: "",
-    address: "",
-    marital_status: "",
-    education: "",
-    id_document: "",
-    // id_issuing_date: "",
-    // id_issuer: "",
-    // email: "",
-    // phone: "",
-  });
+
+  const [newFile,setNewFile] = useState(false)
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     const hasEmptyFields = Object.values(values).some(
       (element) => element === ""
@@ -47,76 +36,38 @@ export default function NewEmployee({
 
     if (hasEmptyFields) {
       toast.error("Preencher todos os campos");
-    return} 
-      
-      console.log(values);
-      router.push("/team/employees");
+      return;
+    }
 
-      OpenNewEmployee();
+    // console.log(e);
+    router.push("/team/employees");
+    OpenNewHire();
 
-      // Validation
+    // Validation
 
-      const res = await fetch(`${supabaseUrl}/rest/v1/employees`, {
-        method: "POST",
-        headers: {
-          apikey:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0bGVpZWJka3d2aGd0anhkcnh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDM3MDEyMzYsImV4cCI6MjAxOTI3NzIzNn0.kH5S0Qi37UmVk3loOPK-frGir4_3ntzno9wY_q1vgHc",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(values),
-      });
-
-      if (res) {
-        if (res.status === 400 || res.status === 401) {
-          console.log(JSON.stringify(values));
-          return;
-        }
-        toast.error("Something Went Wrong");
-      } else {
-        console.log("res ok");
-      }
-    
-  };
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-    console.log(values)
-  };
-  const handleFirstNameChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value.trim() });
-  };
-  const handleLastNameChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-      name: `${values.first_name} ${value}`,
+    const res = await fetch(`${supabaseUrl}/rest/v1/employees`, {
+      method: "POST",
+      headers: {
+        apikey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0bGVpZWJka3d2aGd0anhkcnh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDM3MDEyMzYsImV4cCI6MjAxOTI3NzIzNn0.kH5S0Qi37UmVk3loOPK-frGir4_3ntzno9wY_q1vgHc",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(values),
     });
-  };
 
-  const handleCPFInputChange = (e) => {
-    const { name, value } = e.target;
-
-    const cpfExists = employees.some((employee) => employee.cpf === value);
-
-    if (cpfExists) {
-      toast.error("Já existe um cadastro com este CPF.");
+    if (res) {
+      if (res.status === 400 || res.status === 401) {
+        console.log(JSON.stringify(values));
+        return;
+      }
+      toast.error("Something Went Wrong");
     } else {
-      setValues({ ...values, [name]: cpfMask(value) });
+      console.log("res ok");
     }
   };
 
-  const handlePISInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: pisMask(value) });
-  };
-
-  const handlePhoneInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: phoneMask(value) });
-  };
+  
 
   return (
     <>
@@ -134,17 +85,18 @@ export default function NewEmployee({
           <form
             className="relative bg-white rounded-lg shadow dark:bg-gray-700"
             onSubmit={handleSubmit}
+            
           >
             {/* <!-- Modal header --> */}
             <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Novo Colaborador
+                Nova Contratação
               </h3>
               <button
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-hide="editUserModal"
-                onClick={() => OpenNewEmployee()}
+                onClick={() => OpenNewHire()}
               >
                 <svg
                   className="w-3 h-3"
@@ -164,8 +116,13 @@ export default function NewEmployee({
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
+            <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <ToggleSwitch checked={newFile} label='Colaborador já cadastrado' onChange={setNewFile}/>
+
+            </div>
+            <NewEmployeeForm values={values} setValues={setValues} employees={employees}/>
             {/* <!-- Modal body --> */}
-            <div className="p-6 space-y-6">
+            {/* <div className="p-6 space-y-6">
               <div className="grid grid-cols-9 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                   <label
@@ -237,7 +194,7 @@ export default function NewEmployee({
                     value={values.marital_status}
                     onChange={handleInputChange}
                   >
-                    <option value=''></option>
+                    <option value=""></option>
                     <option value="Casado">Casado(a)</option>
                     <option value="Solteiro">Solteiro(a)</option>
                     <option value="Separado">Separado(a)</option>
@@ -261,19 +218,15 @@ export default function NewEmployee({
                     value={values.education}
                     onChange={handleInputChange}
                   >
-                    <option value=''>Grau de Instrução</option>
+                    <option value="">Grau de Instrução</option>
                     <option value="Fundamental Incompleto">
                       Fundamental Incompleto
                     </option>
                     <option value="Fundamental Completo">
                       Fundamental Completo
                     </option>
-                    <option value="Médio Incompleto">
-                      Médio Incompleto
-                    </option>
-                    <option value="Médio Completo">
-                      Médio Completo
-                    </option>
+                    <option value="Médio Incompleto">Médio Incompleto</option>
+                    <option value="Médio Completo">Médio Completo</option>
                     <option value="Superior Incompleto">
                       Superior Incompleto
                     </option>
@@ -342,17 +295,14 @@ export default function NewEmployee({
                     Data de Nascimento
                   </label>
                   <input
-                    type="date"                 
-                    
+                    type="date"
                     name="birth_date"
                     id="birth_date"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     // placeholder="Data de Nascimento"
                     required=""
-                    
                     value={values.birth_date}
                     onChange={handleInputChange}
-                    
                   ></input>
                 </div>
                 <div className="col-span-6 sm:col-span-3">
@@ -392,7 +342,7 @@ export default function NewEmployee({
                   ></input>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* <!-- Modal footer --> */}
             <div className="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
               <button
