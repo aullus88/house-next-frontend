@@ -5,18 +5,18 @@ import Image from "next/image";
 import AuthContext from "@/context/AuthContext";
 import { useState, useEffect, useContext } from "react";
 import MenuItem from "./mocks/MenuItem";
+import { useTheme } from 'next-themes'
+import { getDarkModePreference } from "@/helpers/darkMode";
+import { DarkThemeToggle } from "flowbite-react";
 
 export default function Navbar({ children, title }) {
 
-  const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+ 
+  
 
-if (prefersDarkMode) {
-  // User prefers dark mode
-  console.log('User prefers dark mode');
-} else {
-  // User prefers light mode
-  console.log('User prefers light mode');
-}
+  
+
+
   const menuItems = [
     {
       title: "Pages",
@@ -46,7 +46,10 @@ if (prefersDarkMode) {
   ];
 
   const { logout, user } = useContext(AuthContext);
-  // console.log(user)
+
+    
+
+    
 
   return (
     <>
@@ -171,9 +174,9 @@ if (prefersDarkMode) {
           
             <div className="px-3 pb-4 overflow-y-auto bg-white dark:bg-slate-500/0">
             <Link href="/">
+                  
                   <div className="flex justify-center items-center mx-auto p-6">
-                    <Image src={prefersDarkMode ? logo_dark : logo} width={180} alt="Picture of the author" />
-                    
+                    <Image src={getDarkModePreference() ? logo_dark : logo} width={180} alt="Picture of the author" />                    
                   </div>
                 </Link>
               <ul className="space-y-2 font-medium">
@@ -196,12 +199,13 @@ if (prefersDarkMode) {
               >
                 Sair
               </button>
+              <DarkThemeToggle/>
             </div>
           </div>
         </aside>
-        <main className="flex-col h-screen p-4  sm:ml-64 bg-stone-100 dark:bg-stone-950  max-w-full">   
+        <main className="flex flex-col flex-grow p-4 md:p-6 sm:ml-64 bg-stone-50 dark:bg-stone-950  max-w-full">   
         <div >
-        <h3 className="text-3xl font-bold dark:text-white">{title}</h3>
+        <h3 className="text-3xl font-bold text-black dark:text-white">{title}</h3>
       </div>     
           {children}
         </main>
