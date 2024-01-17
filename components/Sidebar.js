@@ -1,22 +1,15 @@
 import Link from "next/link";
-import logo_dark from "@/public/house_logo_dark.svg";
-import logo from "@/public/house_logo.png";
+import logo_dark from "@/public/house_logo_dark.png";
+import logo from "@/public/house_logo_light.png";
 import Image from "next/image";
 import AuthContext from "@/context/AuthContext";
 import { useState, useEffect, useContext } from "react";
-import MenuItem from "./mocks/MenuItem";
-import { useTheme } from 'next-themes'
+import MenuItem from "./MenuItem";
+import { useTheme } from "next-themes";
 import { getDarkModePreference } from "@/helpers/darkMode";
 import { DarkThemeToggle } from "flowbite-react";
 
 export default function Navbar({ children, title }) {
-
- 
-  
-
-  
-
-
   const menuItems = [
     {
       title: "Pages",
@@ -46,10 +39,6 @@ export default function Navbar({ children, title }) {
   ];
 
   const { logout, user } = useContext(AuthContext);
-
-    
-
-    
 
   return (
     <>
@@ -167,18 +156,20 @@ export default function Navbar({ children, title }) {
         </nav> */}
         <aside
           id="logo-sidebar"
-          className="fixed top-0 left-0 z-40 w-64 h-screen pt-3 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-slate-900/50 dark:border-gray-700"
+          className="fixed top-0 left-0 z-40 w-64 h-screen pt-3 transition-transform -translate-x-full bg-gray-200 border-r border-gray-200 sm:translate-x-0  dark:bg-stone-950 dark:border-gray-700"
           aria-label="Sidebar"
         >
           <div className="flex flex-col h-full justify-between ">
-          
-            <div className="px-3 pb-4 overflow-y-auto bg-white dark:bg-slate-500/0">
-            <Link href="/">
-                  
-                  <div className="flex justify-center items-center mx-auto p-6">
-                    <Image src={getDarkModePreference() ? logo_dark : logo} width={180} alt="Picture of the author" />                    
-                  </div>
-                </Link>
+            <div className="px-3 pb-4 overflow-y-auto  dark:bg-slate-500/0">
+              <Link href="/">
+                <div className="flex justify-center items-center mx-auto p-6">
+                  <Image
+                    src={getDarkModePreference() ? logo_dark : logo}
+                    width={180}
+                    alt="Picture of the author"
+                  />
+                </div>
+              </Link>
               <ul className="space-y-2 font-medium">
                 {menuItems.map((page) => (
                   <li key={page.title}>
@@ -190,7 +181,7 @@ export default function Navbar({ children, title }) {
               </ul>
             </div>
 
-            <div className="flex flex-col h-fit p-2 gap-2 ">
+            <div className="flex text-black flex-col h-fit p-2 gap-2 ">
               <p>{user ? user.email : ""}</p>
               <button
                 onClick={logout}
@@ -199,14 +190,16 @@ export default function Navbar({ children, title }) {
               >
                 Sair
               </button>
-              <DarkThemeToggle/>
+              <DarkThemeToggle />
             </div>
           </div>
         </aside>
-        <main className="flex flex-col flex-grow p-4 md:p-6 sm:ml-64 bg-stone-50 dark:bg-stone-950  max-w-full">   
-        <div >
-        <h3 className="text-3xl font-bold text-black dark:text-white">{title}</h3>
-      </div>     
+        <main className="flex flex-col flex-grow p-4 md:p-6 sm:ml-64 bg-neutral-100 dark:bg-slate-950  max-w-full">
+          <div>
+            <h3 className="text-3xl font-bold text-black dark:text-white">
+              {title}
+            </h3>
+          </div>
           {children}
         </main>
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function Table(props) {
   const { root, title, data } = props;
-  // console.log(data)
+  console.log(data)
 
   const headers = Object.keys(data[0]);
   const [sortColumn, setSortColumn] = useState(null);
@@ -34,7 +34,7 @@ export default function Table(props) {
 
   return (
     // <div className="container my-auto overflow-hidden overscroll-auto flex flex-col w-full ">
-      <div class="container my-auto overflow-x-auto flex flex-col w-full shadow-md sm:rounded-lg">
+      <div className="container my-auto overflow-x-auto flex flex-col w-full shadow-md sm:rounded-lg">
       {/* <h1 className="m-2 text-center">{title}</h1> */}
       <table className="h-max-full w-max-screen text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
