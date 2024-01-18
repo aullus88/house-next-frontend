@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function TeamsNavbar() {
   const pathname = usePathname();
 
-  console.log(pathname);
+  
 
   const partPath = `/${pathname.split("/")[2]}`;
 

@@ -10,6 +10,10 @@ import { Datepicker } from "flowbite-react";
 
 
 export default function NewEmployeeForm({employees, values, setValues}) {
+
+   
+
+    
   
 
   const router = useRouter();
@@ -36,8 +40,7 @@ export default function NewEmployeeForm({employees, values, setValues}) {
     const { name, value } = e.target;
 
     const cpfExists = employees.some((employee) => employee.cpf === value);
-    console.log(employees[1].cpf)
-    console.log(value)
+    
 
     if (cpfExists) {
       toast.error("Já existe um cadastro com este CPF.");

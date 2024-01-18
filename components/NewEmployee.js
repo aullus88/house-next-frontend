@@ -8,18 +8,18 @@ import { supabaseUrl } from "@/config";
 import { cpfMask, pisMask, phoneMask } from "@/helpers/mask";
 import { Datepicker } from "flowbite-react";
 import NewEmployeeForm from "./NewEmployeeForm";
+import { createEmployee } from "@/dbRoutes/employees";
 
 export default function NewEmployee({
   showNewEmployee,
   OpenNewEmployee,
   token,
   employees,
-  
 }) {
   if (!showNewEmployee) {
     return null;
   }
-
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     first_name: "",
     last_name: "",
@@ -33,98 +33,93 @@ export default function NewEmployee({
     id_document: "",
     // id_issuing_date: "",
     // id_issuer: "",
-    // email: "",
-    // phone: "",
+    email: "",
+    phone: "",
   });
 
-  
+  const [hireDataPontomais, setHireDataPontomais] = useState({
+    employee: {
+      name: "",
+      admission_date:"",
+      initial_date:"",
+      team_id: 65390,
+      cost_center_id:877827,
+      job_title_id:"",
+      shift_id:"",
+      nis: "",
+      cpf: "",
+      is_clt: true,      
+    },
+  });
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // const hasEmptyFields = Object.values(values).some(
+    //   (element) => element === ""
+    // );
 
-    const hasEmptyFields = Object.values(values).some(
-      (element) => element === ""
-    );
+    // if (hasEmptyFields) {
+    //   toast.error("Preencher todos os campos");
+    //   return;
+    // }
 
-    if (hasEmptyFields) {
-      toast.error("Preencher todos os campos");
-    return} 
-      
-      // console.log(values);
-      router.push("/team/employees");
+    try {
+      const newEmp = await createEmployee({ values, token });
 
-      OpenNewEmployee();
-
-      // Validation
-
-      const res = await fetch(`${supabaseUrl}/rest/v1/employees`, {
-        method: "POST",
-        headers: {
-          apikey:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0bGVpZWJka3d2aGd0anhkcnh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDM3MDEyMzYsImV4cCI6MjAxOTI3NzIzNn0.kH5S0Qi37UmVk3loOPK-frGir4_3ntzno9wY_q1vgHc",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(values),
-      });
-
-      if (res) {
-        if (res.status === 400 || res.status === 401) {
-          // console.log(JSON.stringify(values));
-          return;
-        }
-        toast.error("Something Went Wrong");
-      } else {
-        // console.log("res ok");
+      if (newEmp) {
+        toast[newEmp.type](newEmp.message);
+        router.push("/team/employees");
+        OpenNewEmployee();
       }
-    
-  };
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-    // console.log(values)
-  };
-  const handleFirstNameChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value.trim() });
-  };
-  const handleLastNameChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-      name: `${values.first_name} ${value}`,
-    });
-  };
-
-  const handleCPFInputChange = (e) => {
-    const { name, value } = e.target;
-
-    const cpfExists = employees.some((employee) => employee.cpf === value);
-
-    if (cpfExists) {
-      toast.error("Já existe um cadastro com este CPF.");
-    } else {
-      setValues({ ...values, [name]: cpfMask(value) });
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+      toast.error("Algo deu errado");
     }
   };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setValues({ ...values, [name]: value });
+  // };
+  // const handleFirstNameChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setValues({ ...values, [name]: value.trim() });
+  // };
+  // const handleLastNameChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setValues({
+  //     ...values,
+  //     [name]: value,
+  //     name: `${values.first_name} ${value}`,
+  //   });
+  // };
 
-  const handlePISInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: pisMask(value) });
-  };
+  // const handleCPFInputChange = (e) => {
+  //   const { name, value } = e.target;
 
-  const handlePhoneInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: phoneMask(value) });
-  };
+  //   const cpfExists = employees.some((employee) => employee.cpf === value);
+
+  //   if (cpfExists) {
+  //     toast.error("Já existe um cadastro com este CPF.");
+  //   } else {
+  //     setValues({ ...values, [name]: cpfMask(value) });
+  //   }
+  // };
+
+  // const handlePISInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setValues({ ...values, [name]: pisMask(value) });
+  // };
+
+  // const handlePhoneInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setValues({ ...values, [name]: phoneMask(value) });
+  // };
 
   return (
     <>
-      <ToastContainer />
       <div
         id="editUserModal"
         tabIndex="-1"
@@ -169,15 +164,19 @@ export default function NewEmployee({
               </button>
             </div>
             {/* <!-- Modal body --> */}
-            <NewEmployeeForm  employees={employees} values={values} setValues={setValues}/>
-            
+            <NewEmployeeForm
+              employees={employees}
+              values={values}
+              setValues={setValues}
+            />
+
             {/* <!-- Modal footer --> */}
             <div className="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
               <button
                 type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
-                Save all
+                Cadastrar
               </button>
             </div>
           </form>
