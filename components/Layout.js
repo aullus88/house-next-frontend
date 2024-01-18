@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import { useRouter } from "next/router";
 import { useEffect, useContext } from "react";
 import AuthContext from "@/context/AuthContext";
+import { ToastContainer } from 'react-toastify';
 
 export default function Layout({ title, keywords, description, children }) {
   const { user } = useContext(AuthContext);
@@ -14,10 +15,12 @@ export default function Layout({ title, keywords, description, children }) {
       router.push("/login");
     }
   }, [user, router]);
+  
 
   return (
     <div>
       {user ? <Sidebar title={title}>{(children)}</Sidebar> : ""}
+      <ToastContainer />
 
       <Head>
         <title>{title}</title>
