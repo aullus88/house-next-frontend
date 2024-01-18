@@ -48,10 +48,11 @@ export default function EmployeesPage({ employees, token }) {
               nome: employee.name,
               cpf: employee.cpf,
               pis: employee.pis,
-              Nascimento: employee.birth_date,
+              Nascimento: new Date(employee.birth_date).toLocaleDateString("pt-BR"),
             }))}
             title={"employee"}
             root={"team"}
+            edit={true}
           />
         )}
       </div>
