@@ -30,7 +30,7 @@ export default function EmployeePage({
       <TeamsNavbar />
       {/* //CREATE BUTONS ON LEFT AND RIGHT OF THE PAGE DO GO TO THE PREVIOUS AND NEXT EMPLOYEE */}
 
-      <div className="flex mx-auto my-4 justify-between px-4 w-full ">
+      <div className="rounded-md justify-between w-full" role="group">
         {/* Button or link for next page */}
 
         {/* Button or link for previous page */}
@@ -51,14 +51,35 @@ export default function EmployeePage({
           </Link>
         )}
       </div>
-      <div className="flex flex-col w-full mx-auto my-4 p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold dark:text-white">
+      <div className="flex flex-col w-full mx-auto my-4 p-4 text-black bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <div className="flex flex-rom text-center mb-6">
+          <h1 className="text-3xl self-center font-bold dark:text-white">
             {employee.name}
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Employee ID: {employee.id}
-          </p>
+
+          <Link
+            type="button"
+            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="editUserModal"
+            href={("/team/employees")}
+          >
+            <svg
+              className="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+            <span className="sr-only">Close modal</span>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

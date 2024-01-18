@@ -156,7 +156,7 @@ export default function Navbar({ children, title }) {
         </nav> */}
         <aside
           id="logo-sidebar"
-          className="fixed top-0 left-0 z-40 w-64 h-screen pt-3 transition-transform -translate-x-full bg-gray-200 border-r border-gray-200 sm:translate-x-0  dark:bg-stone-950 dark:border-gray-700"
+          className="fixed top-0 left-0 z-40 w-64 h-screen pt-3 transition-transform -translate-x-full bg-gray-200 border-r border-gray-200 sm:translate-x-0  dark:bg-black dark:border-gray-700"
           aria-label="Sidebar"
         >
           <div className="flex flex-col h-full justify-between ">
@@ -194,7 +194,7 @@ export default function Navbar({ children, title }) {
             </div>
           </div>
         </aside>
-        <main className="flex flex-col flex-grow p-4 md:p-6 sm:ml-64 bg-neutral-100 dark:bg-slate-950  max-w-full">
+        <main className="flex flex-col flex-grow p-4 md:p-6 sm:ml-64 bg-neutral-100 dark:bg-stone-950  max-w-full">
           <div>
             <h3 className="text-3xl font-bold text-black dark:text-white">
               {title}

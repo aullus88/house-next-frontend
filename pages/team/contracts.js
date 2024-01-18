@@ -51,6 +51,7 @@ export default function ContractsPage({ employees, contracts, token, jobs }) {
             title={"contract"}
             root={"team"}
             filters={filterActiveContracts}
+            edit={false}
           />
         )}
       </div>
