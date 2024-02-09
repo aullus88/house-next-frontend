@@ -40,7 +40,11 @@ export default function EmployeesPage({employeesData, token}) {
 
       {/* <EmployeesTable data={employees} title={"employee"} root={"team"} /> */}
       <div >
-      <Table data={employeesData} title={"employee"} root={"team"} />
+        { employeesData ? (
+          <p>Loading</p>
+        ) : (
+          <Table data={employeesData} title={"employee"} root={"team"} />
+        )}
       </div>
     </Layout>
   );

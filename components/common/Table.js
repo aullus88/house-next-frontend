@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 export default function Table(props) {
-  const { root, title, data } = props;
-  console.log(data)
+  const { root, title, data, noEdit } = props;
 
   const headers = Object.keys(data[0]);
   const [sortColumn, setSortColumn] = useState(null);
@@ -86,14 +85,16 @@ export default function Table(props) {
                   {item[header]}
                 </td>
               ))}
-              <td className="px-6 py-4">
-                <a
-                  href={`/${root}/${title}/${item.id}`}
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
+              {noEdit && (
+                <td className="px-6 py-4">
+                  <a
+                    href={`/${root}/${title}/${item.id}`}
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    Edit
+                  </a>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

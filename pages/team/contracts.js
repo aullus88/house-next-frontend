@@ -34,7 +34,7 @@ export default function ContractsPage({ employees, contractsData, token,  }) {
       />
 
       <div>
-        <Table data={contractsData} title={"contracts"} root={"team"} />
+        <Table data={contractsData} title={"contracts"} root={"team"} noEdit/>
       </div>
     </Layout>
   );
